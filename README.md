@@ -24,7 +24,7 @@
 <br>
 
 # Features
-* Detect the action of mouse, and copy the selected text of the screen
+* Detect the action of mouse, and get the selected text of the screen
 
 # Dependencies
 * C library: Xlib
@@ -38,7 +38,7 @@
 
 # Notifications
 1. Please install the dependencies yourself if you didn't install before
-2. If you want to make the terminal works normally, please execute the following command 
+2. If you want to make the terminal works normally with this program, please execute the following command 
 
     $ ps -p \`xdotool getwindowfocus getwindowpid\` |awk '{print $NF}' | tail -n 1 
 
