@@ -45,7 +45,6 @@ int isTerminal(char *name) {
 
     int i, j;
     int n = sizeof(termName) / sizeof(termName[0]);
-    printf("name=%s\n", name);
     char *p = name;
     while(*p++ != '\n');
     *(p-1) = '\0';
@@ -143,9 +142,8 @@ int main(int argc,char **argv)
     if ( fd < 0 ) {  
         fprintf(stderr, "Failed to open mice");
         exit(1);  
-    } else {  
-        fprintf(stdout, "Open mice successful\n");
-    }  
+    }
+      
 
     int history[4] = { 0 };
     int i = 0, n = 0, m = 0, j = 0, q = 0,\
@@ -278,7 +276,7 @@ int main(int argc,char **argv)
 
                 if ( isTerminal(appName) == 1) {
 
-                    fprintf(stdout, "Send ctrl-shift-c\n");
+                    //fprintf(stdout, "Send ctrl-shift-c\n");
 
                     /*发送CTRL-SHIFT-C*/
                     press(fd_key, KEY_LEFTCTRL);
@@ -291,7 +289,7 @@ int main(int argc,char **argv)
 
                 } else {
 
-                    fprintf(stdout, "Send ctrl-c\n");
+                    //fprintf(stdout, "Send ctrl-c\n");
 
                     //发送CTRL-C
                     press(fd_key, KEY_LEFTCTRL);
@@ -315,7 +313,7 @@ int main(int argc,char **argv)
                 if ( strcmp ( text, " ") != 0 
                         && strcmp ( text, "\n") != 0 
                    ) {
-                    fprintf(stdout, "get text successful: %s\n", text);
+                    fprintf(stdout, "%s\n", text);
                 }
 
                 memset(history, 0, sizeof(history));
