@@ -76,8 +76,8 @@ int getClipboard(char *text)
      * if only_if_exists is FALSE , the atom is created if 
      * it doesn't exists
      */
+    sel = XInternAtom(dpy, "PRIMARY", False);
     //sel = XInternAtom(dpy, "CLIPBOARD", False);
-    sel = XInternAtom(dpy, "CLIPBOARD", False);
     utf8 = XInternAtom(dpy, "UTF8_STRING", False);
 
     /*
@@ -87,7 +87,7 @@ int getClipboard(char *text)
 
     if (owner == None)
     {
-        fprintf(stderr,"'CLIPBOARD' has no owner\n");
+        fprintf(stderr,"'PRIMARY' has no owner\n");
         return 1;
     }
 

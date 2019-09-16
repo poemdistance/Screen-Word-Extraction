@@ -32,29 +32,7 @@
 #include <X11/extensions/XTest.h>
 #include "common.h"
 
-const static char termName[3][19] = 
-{
-    "terminator",
-    "gnome-terminal-",
-    "konsole"
-};
-
 char *text = NULL;
-
-int isTerminal(char *name) {
-
-    int i, j;
-    int n = sizeof(termName) / sizeof(termName[0]);
-    char *p = name;
-    while(*p++ != '\n');
-    *(p-1) = '\0';
-
-    for ( i = 0; i < n; i++ ) {
-        if ( strcmp ( termName[i], name ) == 0 )
-            return 1;
-    }
-    return -1;
-}
 
 /*获取当前数组下标的前一个下标值,
  *数组元素为4*/
@@ -137,13 +115,14 @@ int main(int argc,char **argv)
     double newtime = 0;
     int thirdClick;
 
+    char dev[100];
+
     // 打开鼠标设备  
     fd = open("/dev/input/mice", O_RDONLY );  
     if ( fd < 0 ) {  
         fprintf(stderr, "Failed to open mice");
         exit(1);  
     }
-      
 
     int history[4] = { 0 };
     int i = 0, n = 0, m = 0, j = 0, q = 0,\
@@ -249,8 +228,11 @@ int main(int argc,char **argv)
                     releaseButton = 1;
                 }
 
+
+                /* 改用从Primary selection中获取选中的字符，没必要再模拟复制*/
+#if 0
                 if ( fd_key <= 0 )
-                    fd_key = open("/dev/input/event3", O_RDWR);
+                    fd_key = open(getKeyboardDevice(dev), O_RDWR);
                 if(fd_key < 0) {
                     fprintf(stderr, "Open keyboard device failed\n");
                     exit(1);
@@ -297,6 +279,7 @@ int main(int argc,char **argv)
                     release(fd_key, KEY_C);
                     release(fd_key, KEY_LEFTCTRL);
                 }
+#endif
 
 
                 /*等待数据被写入剪贴板*/
